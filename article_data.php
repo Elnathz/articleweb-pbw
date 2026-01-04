@@ -3,7 +3,8 @@
         <tr>
             <th>No</th>
             <th class="w-25">Judul</th>
-            <th class="w-75">Isi</th>
+            <th class="w-25">Isi</th>
+            <th class="w-25">Summary</th>
             <th class="w-25">Gambar</th>
             <th class="w-25">Aksi</th>
         </tr>
@@ -29,13 +30,38 @@
                     <br>pada : <?= $row["tanggal"] ?>
                     <br>oleh : <?= $row["username"] ?>
                 </td>
-                <td><?= $row["isi"] ?></td>
+                <td>
+                    <?php
+                    // Potong isi untuk tampilan tabel
+                    $kata = explode(" ", $row["isi"]);
+                    if (count($kata) >= 20) {
+                        echo implode(" ", array_slice($kata, 0, 20)) . "...";
+                    } else {
+                        echo $row["isi"];
+                    }
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    // Tampilkan summary di tabel
+                    if (!empty($row["summary"])) {
+                        $kata = explode(" ", $row["summary"]);
+                        if (count($kata) >= 20) {
+                            echo implode(" ", array_slice($kata, 0, 20)) . "...";
+                        } else {
+                            echo $row["summary"];
+                        }
+                    } else {
+                        echo "<span class='text-muted'>-</span>";
+                    }
+                    ?>
+                </td>
                 <td>
                     <?php
                     if ($row["gambar"] != '') {
                         if (file_exists('img/' . $row["gambar"] . '')) {
                     ?>
-                            <img src="img/<?= $row["gambar"] ?>" width="100">
+                            <img src="img/<?= $row["gambar"] ?>" width="200">
                     <?php
                         }
                     }
@@ -44,7 +70,7 @@
                 <td>
                     <a href="#" title="edit" class="badge rounded-pill text-bg-success" data-bs-toggle="modal" data-bs-target="#modalEdit<?= $row["id"] ?>"><i class="bi bi-pencil"></i></a>
                     <a href="#" title="delete" class="badge rounded-pill text-bg-danger" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $row["id"] ?>"><i class="bi bi-x-circle"></i></a>
-                    <!-- Awal Modal Edit -->
+
                     <div class="modal fade" id="modalEdit<?= $row["id"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -61,7 +87,18 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="floatingTextarea2">Isi</label>
-                                            <textarea class="form-control" placeholder="Tuliskan Isi Artikel" name="isi" required><?= $row["isi"] ?></textarea>
+                                            <textarea class="form-control" placeholder="Tuliskan Isi Artikel" name="isi" id="isi<?= $row['id'] ?>" required><?= $row["isi"] ?></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="floatingTextarea2">Ringkasan (Thumbnail)</label>
+                                            <div class="input-group">
+                                                <textarea class="form-control" placeholder="Ringkasan singkat..." name="summary" id="summary<?= $row['id'] ?>" rows="2"><?= $row["summary"] ?></textarea>
+                                                <button class="btn btn-warning text-dark btn-generate-summary-edit" type="button" data-id="<?= $row['id'] ?>">
+                                                    <i class="bi bi-magic"></i>
+                                                </button>
+                                            </div>
+                                            <div id="loading-summary<?= $row['id'] ?>" class="d-none text-muted"><small>Sedang meringkas...</small></div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="formGroupExampleInput2" class="form-label">Ganti Gambar</label>
@@ -89,9 +126,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Akhir Modal Edit -->
-
-                    <!-- Awal Modal Hapus -->
                     <div class="modal fade" id="modalHapus<?= $row["id"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -115,7 +149,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Akhir Modal Hapus -->
                 </td>
             </tr>
         <?php
