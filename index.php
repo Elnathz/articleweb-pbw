@@ -305,269 +305,261 @@ include "koneksi.php";
         class="text-center p-5 bg-danger-subtle text-sm-start">
         <div class="container">
             <div class="row">
-            <div class="d-sm-flex flex-sm-row-reverse align-items-center">
-                <img
-                    src="./img/banner.webp"
-                    class="img-fluid rounded-2 ms-sm-4"
-                    width="300" />
+                <div class="d-sm-flex flex-sm-row-reverse align-items-center">
+                    <img
+                        src="./img/banner.webp"
+                        class="img-fluid rounded-2 ms-sm-4"
+                        width="300" />
 
-                <div id="hero-text">
-                    <h1 class="fw-bold display-4">
-                        Create Memories, Save Memories, Everyday
-                    </h1>
-                    <h4 class="lead display-6">
-                        Mencatat semua kegiatan sehari-hari yang ada tanpa
-                        terkecuali
-                    </h4>
-                    <time class="fw-normal" id="timestamp">
-                        <span id="tanggal"></span>
-                        <span id="jam"></span>
-                    </time>
+                    <div id="hero-text">
+                        <h1 class="fw-bold display-4">
+                            Create Memories, Save Memories, Everyday
+                        </h1>
+                        <h4 class="lead display-6">
+                            Mencatat semua kegiatan sehari-hari yang ada tanpa
+                            terkecuali
+                        </h4>
+                        <time class="fw-normal" id="timestamp">
+                            <span id="tanggal"></span>
+                            <span id="jam"></span>
+                        </time>
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- hero end -->
 
     <!-- profile begin -->
     <section id="profile" class="p-5">
-      <div class="container">
-        <h1 class="text-center fw-bolder display-4 mb-5">Profile Mahasiswa</h1>
+        <div class="container">
+            <h1 class="text-center fw-bolder display-4 mb-5">Profile Mahasiswa</h1>
 
-        <div class="row g-4">
-          <!-- CARD 1 -->
-          <div class="col-12 col-lg-6">
-            <div
-              class="d-flex flex-column flex-lg-row align-items-center gap-4"
-            >
-              <div class="flex-shrink-0">
-                <img
-                  src="./img/far.JPG"
-                  alt="Farros Rifantiarno Ramadhani"
-                  class="rounded-circle object-fit-cover"
-                  width="200"
-                  height="200"
-                />
-              </div>
+            <div class="row g-4">
+                <!-- CARD 1 -->
+                <div class="col-12 col-lg-6">
+                    <div
+                        class="d-flex flex-column flex-lg-row align-items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <img
+                                src="./img/far.JPG"
+                                alt="Farros Rifantiarno Ramadhani"
+                                class="rounded-circle object-fit-cover"
+                                width="200"
+                                height="200" />
+                        </div>
 
-              <div>
-                <h3 class="fw-semibold text-center border-bottom border-dark">
-                  Farros Rifantiarno Ramadhani
-                </h3>
+                        <div>
+                            <h3 class="profile-text fw-semibold text-center border-bottom border-dark">
+                                Farros Rifantiarno Ramadhani
+                            </h3>
 
-                <table class="table table-borderless align-middle m-0">
-                  <tr>
-                    <th scope="row" class="pe-3">NIM</th>
-                    <td>: A11.2024.15694</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Program Studi</th>
-                    <td>: Teknik Informatika</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Email</th>
-                    <td>
-                      :
-                      <a href="mailto:111202415694@mhs.dinus.ac.id">
-                        <i class="bi bi-envelope"></i>
-                      </a>
-                      111202415694@mhs.dinus.ac.id
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Telepon</th>
-                    <td>
-                      :
-                      <a href="https://wa.me/6285157680550">
-                        <i class="bi bi-whatsapp"></i>
-                      </a>
-                      +62 851 5768 0550
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Alamat</th>
-                    <td>: Purwodadi</td>
-                  </tr>
-                </table>
-              </div>
+                            <table class="text-table text-table table table-borderless align-middle m-0">
+                                <tr>
+                                    <th scope="row" class="pe-3">NIM</th>
+                                    <td>: A11.2024.15694</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Program Studi</th>
+                                    <td>: Teknik Informatika</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Email</th>
+                                    <td>
+                                        :
+                                        <a href="mailto:111202415694@mhs.dinus.ac.id">
+                                            <i class="bi bi-envelope"></i>
+                                        </a>
+                                        111202415694@mhs.dinus.ac.id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Telepon</th>
+                                    <td>
+                                        :
+                                        <a href="https://wa.me/6285157680550">
+                                            <i class="bi bi-whatsapp"></i>
+                                        </a>
+                                        +62 851 5768 0550
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Alamat</th>
+                                    <td>: Purwodadi</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="col-12 col-lg-6">
+                    <div
+                        class="d-flex flex-column flex-lg-row align-items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <img
+                                src="./img/echa.jpg"
+                                alt="Angela Echa Naresti"
+                                class="rounded-circle object-fit-cover"
+                                width="200"
+                                height="200" />
+                        </div>
+
+                        <div>
+                            <h3 class="profile-text fw-semibold text-center border-bottom border-dark">
+                                Angela Echa Naresti
+                            </h3>
+
+                            <table class="text-table table table-borderless align-middle m-0">
+                                <tr>
+                                    <th scope="row" class="pe-3">NIM</th>
+                                    <td>: A11.2024.15694</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Program Studi</th>
+                                    <td>: Teknik Informatika</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Email</th>
+                                    <td>
+                                        :
+                                        <a href="mailto:111202415971@mhs.dinus.ac.id">
+                                            <i class="bi bi-envelope"></i>
+                                        </a>
+                                        111202415971@mhs.dinus.ac.id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Telepon</th>
+                                    <td>
+                                        :
+                                        <a href="https://wa.me/6281390865452">
+                                            <i class="bi bi-whatsapp"></i>
+                                        </a>
+                                        +62 813 9086 5452
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Alamat</th>
+                                    <td>: Bukit Elang Residence Blok G No.73</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="col-12 col-lg-6">
+                    <div
+                        class="d-flex flex-column flex-lg-row align-items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <img
+                                src="./img/adam.jpeg"
+                                alt="Adam Haritsa Thahara"
+                                class="rounded-circle object-fit-cover"
+                                width="200"
+                                height="200" />
+                        </div>
+
+                        <div>
+                            <h3 class="profile-text fw-semibold text-center border-bottom border-dark">
+                                Adam Haritsa Thahara
+                            </h3>
+
+                            <table class="text-table table table-borderless align-middle m-0">
+                                <tr>
+                                    <th scope="row" class="pe-3">NIM</th>
+                                    <td>: A11.2024.15556</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Program Studi</th>
+                                    <td>: Teknik Informatika</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Email</th>
+                                    <td>
+                                        :
+                                        <a href="mailto:111202415556@mhs.dinus.ac.id">
+                                            <i class="bi bi-envelope"></i>
+                                        </a>
+                                        111202415556@mhs.dinus.ac.id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Telepon</th>
+                                    <td>
+                                        :
+                                        <a href="https://wa.me/6281393167352">
+                                            <i class="bi bi-whatsapp"></i>
+                                        </a>
+                                        +62 813 9316 7352
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Alamat</th>
+                                    <td>: Jl. Sinar Bahagia Raya, Semarang</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="col-12 col-lg-6">
+                    <div
+                        class="d-flex flex-column flex-lg-row align-items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <img
+                                src="./img/puguh.jpeg"
+                                alt="Puguh Wibowo"
+                                class="rounded-circle object-fit-cover"
+                                width="200"
+                                height="200" />
+                        </div>
+
+                        <div>
+                            <h3 class="profile-text fw-semibold text-center border-bottom border-dark">
+                                Puguh Wibowo
+                            </h3>
+
+                            <table class="text-table table table-borderless align-middle m-0">
+                                <tr>
+                                    <th scope="row" class="pe-3">NIM</th>
+                                    <td>: A11.2024.15942</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Program Studi</th>
+                                    <td>: Teknik Informatika</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Email</th>
+                                    <td>
+                                        :
+                                        <a href="mailto:111202415942@mhs.dinus.ac.id">
+                                            <i class="bi bi-envelope"></i>
+                                        </a>
+                                        111202415942@mhs.dinus.ac.id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Telepon</th>
+                                    <td>
+                                        :
+                                        <a href="https://wa.me/6281246682326">
+                                            <i class="bi bi-whatsapp"></i>
+                                        </a>
+                                        +62 812 4668 2326
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="pe-3">Alamat</th>
+                                    <td>: Jl. Nakula 1 No.44 Pendirikan Kidul, Semarang</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <!-- CARD 2 -->
-          <div class="col-12 col-lg-6">
-            <div
-              class="d-flex flex-column flex-lg-row align-items-center gap-4"
-            >
-              <div class="flex-shrink-0">
-                <img
-                  src="./img/echa.jpg"
-                  alt="Angela Echa Naresti"
-                  class="rounded-circle object-fit-cover"
-                  width="200"
-                  height="200"
-                />
-              </div>
-
-              <div>
-                <h3 class="fw-semibold text-center border-bottom border-dark">
-                  Angela Echa Naresti
-                </h3>
-
-                <table class="table table-borderless align-middle m-0">
-                  <tr>
-                    <th scope="row" class="pe-3">NIM</th>
-                    <td>: A11.2024.15694</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Program Studi</th>
-                    <td>: Teknik Informatika</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Email</th>
-                    <td>
-                      :
-                      <a href="mailto:111202415971@mhs.dinus.ac.id">
-                        <i class="bi bi-envelope"></i>
-                      </a>
-                      111202415971@mhs.dinus.ac.id
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Telepon</th>
-                    <td>
-                      :
-                      <a href="https://wa.me/6281390865452">
-                        <i class="bi bi-whatsapp"></i>
-                      </a>
-                      +62 813 9086 5452
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Alamat</th>
-                    <td>: Bukit Elang Residence Blok G No.73</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- CARD 3 -->
-          <div class="col-12 col-lg-6">
-            <div
-              class="d-flex flex-column flex-lg-row align-items-center gap-4"
-            >
-              <div class="flex-shrink-0">
-                <img
-                  src="./img/adam.jpeg"
-                  alt="Adam Haritsa Thahara"
-                  class="rounded-circle object-fit-cover"
-                  width="200"
-                  height="200"
-                />
-              </div>
-
-              <div>
-                <h3 class="fw-semibold text-center border-bottom border-dark">
-                  Adam Haritsa Thahara
-                </h3>
-
-                <table class="table table-borderless align-middle m-0">
-                  <tr>
-                    <th scope="row" class="pe-3">NIM</th>
-                    <td>: A11.2024.15556</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Program Studi</th>
-                    <td>: Teknik Informatika</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Email</th>
-                    <td>
-                      :
-                      <a href="mailto:111202415556@mhs.dinus.ac.id">
-                        <i class="bi bi-envelope"></i>
-                      </a>
-                      111202415556@mhs.dinus.ac.id
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Telepon</th>
-                    <td>
-                      :
-                      <a href="https://wa.me/6281393167352">
-                        <i class="bi bi-whatsapp"></i>
-                      </a>
-                      +62 813 9316 7352
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Alamat</th>
-                    <td>: Jl. Sinar Bahagia Raya, Semarang</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- CARD 4 -->
-          <div class="col-12 col-lg-6">
-            <div
-              class="d-flex flex-column flex-lg-row align-items-center gap-4"
-            >
-              <div class="flex-shrink-0">
-                <img
-                  src="./img/puguh.jpeg"
-                  alt="Puguh Wibowo"
-                  class="rounded-circle object-fit-cover"
-                  width="200"
-                  height="200"
-                />
-              </div>
-
-              <div>
-                <h3 class="fw-semibold text-center border-bottom border-dark">
-                  Puguh Wibowo
-                </h3>
-
-                <table class="table table-borderless align-middle m-0">
-                  <tr>
-                    <th scope="row" class="pe-3">NIM</th>
-                    <td>: A11.2024.15942</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Program Studi</th>
-                    <td>: Teknik Informatika</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Email</th>
-                    <td>
-                      :
-                      <a href="mailto:111202415942@mhs.dinus.ac.id">
-                        <i class="bi bi-envelope"></i>
-                      </a>
-                      111202415942@mhs.dinus.ac.id
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Telepon</th>
-                    <td>
-                      :
-                      <a href="https://wa.me/6281246682326">
-                        <i class="bi bi-whatsapp"></i>
-                      </a>
-                      +62 812 4668 2326
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="pe-3">Alamat</th>
-                    <td>: Jl. Nakula 1 No.44 Pendirikan Kidul, Semarang/td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
     <!-- profile end -->
 
@@ -733,7 +725,7 @@ include "koneksi.php";
                 while ($row = $hasil->fetch_assoc()) {
                 ?>
                     <div class="col">
-                        <div class="card h-100">
+                        <div class="card h-100 article-card">
                             <img src="img/<?= $row["gambar"] ?>" class="card-img-top" alt="..." />
                             <div class="card-body">
                                 <h5 class="card-title"><?= $row["judul"] ?></h5>
@@ -750,7 +742,7 @@ include "koneksi.php";
                                 </p>
                             </div>
                             <div class="card-footer">
-                                <small class="text-body-secondary">
+                                <small class="text-body-secondary text-footer">
                                     <?= $row["tanggal"] ?>
                                 </small>
                             </div>
@@ -896,12 +888,21 @@ include "koneksi.php";
                 .getElementById("profile")
                 .classList.add("bg-dark", "text-light");
 
-            document
-                .getElementById("text-table")
-                .classList.remove("table-light");
-            document
-                .getElementById("text-table")
-                .classList.add("table-dark");
+            const textTable = document.getElementsByClassName("text-table");
+            for (let i = 0; i < textTable.length; i++) {
+                textTable[i].classList.remove("table-light");
+            }
+            for (let i = 0; i < textTable.length; i++) {
+                textTable[i].classList.add("table-dark");
+            }
+
+            const profileText = document.getElementsByClassName("profile-text");
+            for (let i = 0; i < profileText.length; i++) {
+                profileText[i].classList.remove("border-dark");
+            }
+            for (let i = 0; i < profileText.length; i++) {
+                profileText[i].classList.add("border-white");
+            }
 
             // schedule
             document
@@ -1004,12 +1005,21 @@ include "koneksi.php";
                 .getElementById("profile")
                 .classList.remove("bg-dark", "text-light");
 
-            document
-                .getElementById("text-table")
-                .classList.remove("table-dark");
-            document
-                .getElementById("text-table")
-                .classList.add("table-light");
+            const textTable = document.getElementsByClassName("text-table");
+            for (let i = 0; i < textTable.length; i++) {
+                textTable[i].classList.add("table-light");
+            }
+            for (let i = 0; i < textTable.length; i++) {
+                textTable[i].classList.remove("table-dark");
+            }
+
+            const profileText = document.getElementsByClassName("profile-text");
+            for (let i = 0; i < profileText.length; i++) {
+                profileText[i].classList.add("border-dark");
+            }
+            for (let i = 0; i < profileText.length; i++) {
+                profileText[i].classList.remove("border-white");
+            }
 
             // schedule
             document
