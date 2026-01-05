@@ -596,34 +596,29 @@ include "koneksi.php";
                 class="carousel slide w-75 me-auto ms-auto">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img
-                            src="./img/astronomi1.jpg"
-                            class="d-block w-100" />
+                        <?php
+                        $sql = "SELECT * FROM gallery WHERE ID=1";
+                        $hasil = $conn->query($sql);
+
+                        while ($row = $hasil->fetch_assoc()) {
+                        ?>
+                            <img src="img/<?= $row["gambar"] ?>" class="d-block w-100" width="300" alt="gambar <?= $row["ID"] ?>" />
+                        <?php
+                        }
+                        ?>
                     </div>
-                    <div class="carousel-item">
-                        <img
-                            src="./img/astronomi2.jpg"
-                            class="d-block w-100"
-                            width="300" />
-                    </div>
-                    <div class="carousel-item">
-                        <img
-                            src="./img/astronomi3.jpg"
-                            class="d-block w-100"
-                            width="300" />
-                    </div>
-                    <div class="carousel-item">
-                        <img
-                            src="./img/astronomi4.jpg"
-                            class="d-block w-100"
-                            width="300" />
-                    </div>
-                    <div class="carousel-item">
-                        <img
-                            src="./img/astronomi5.jpg"
-                            class="d-block w-100"
-                            width="300" />
-                    </div>
+                    <?php
+                    $sql = "SELECT * FROM gallery WHERE ID > 1";
+                    $hasil = $conn->query($sql);
+                    while ($row = $hasil->fetch_assoc()) {
+                    ?>
+                        <div class="carousel-item">
+
+                            <img src="img/<?= $row["gambar"] ?>" class="d-block w-100" width="300" alt="gambar <?= $row["ID"] ?>" />
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <button
                     class="carousel-control-prev"
