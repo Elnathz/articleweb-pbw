@@ -64,7 +64,7 @@
                                 <label for="formGroupExampleInput2" class="form-label">Gambar</label>
                                 <input type="file" class="form-control" name="gambar" id="inputFile">
                                 <div class="mt-2">
-                                    <img id="preview-crop" src="" class="img-thumbnail d-none" width="200">
+                                    <img id="preview-crop" src="" class="img-thumbnail preview-crop d-none" width="200">
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
             </div>
         </div>
         <!-- Akhir Modal Tambah-->
-        
+
         <!-- modal crop -->
         <div class="modal fade" id="modalCrop" tabindex="-1" aria-labelledby="modalCropLabel" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog modal-lg">
@@ -323,57 +323,48 @@
         }
     });
 
-    // Saat Modal Crop muncul, inisialisasi Cropper
+    // TARGET THUMBNAIL
+    const TARGET_W = 354;
+    const TARGET_H = 236;
+    const TARGET_RATIO = TARGET_W / TARGET_H;
+
     document.getElementById('modalCrop').addEventListener('shown.bs.modal', function() {
         cropper = new Cropper(image, {
-            aspectRatio: 16 / 9, // RASIO 16:9 (Bisa diganti 1/1 untuk persegi, 4/3, dll)
-            viewMode: 1, // Agar crop box tidak keluar dari gambar
-            autoCropArea: 1, // Otomatis select semua area
+            aspectRatio: TARGET_RATIO, // 354 / 236
+            viewMode: 1,
+            autoCropArea: 1,
+            dragMode: 'move',
+            background: false,
+            responsive: true
         });
     });
 
-    // Saat Modal Crop ditutup, hancurkan cropper (biar ga berat/bug)
-    document.getElementById('modalCrop').addEventListener('hidden.bs.modal', function() {
-        if (cropper) {
-            cropper.destroy();
-            cropper = null;
-        }
-    });
-
-    // Tombol "Potong & Gunakan" diklik
     document.getElementById('btn-crop').addEventListener('click', function() {
-        // Ambil hasil crop sebagai Blob (File object)
-        var canvas = cropper.getCroppedCanvas({
-            width: 800, // Resize lebar otomatis ke 800px (biar size tidak kegedean)
-            height: 450, // 800 * 9/16 = 450
+        const canvas = cropper.getCroppedCanvas({
+            width: TARGET_W,
+            height: TARGET_H,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: 'high'
         });
 
         canvas.toBlob(function(blob) {
-            // MAGIC STEP: Masukkan Blob hasil crop ke dalam Input File asli
-            // Ini membuat PHP seolah-olah menerima file upload normal
-
-            // 1. Buat file baru dari Blob
-            var croppedFile = new File([blob], "cropped_image.jpg", {
+            const croppedFile = new File([blob], `thumb_${Date.now()}.jpg`, {
                 type: "image/jpeg",
-                lastModified: new Date().getTime()
+                lastModified: Date.now()
             });
 
-            // 2. Gunakan DataTransfer untuk memanipulasi input file
-            var dataTransfer = new DataTransfer();
+            const dataTransfer = new DataTransfer();
             dataTransfer.items.add(croppedFile);
-
-            // 3. Masukkan ke input file yang memicu trigger tadi
             fileInput[0].files = dataTransfer.files;
 
-            // 4. Tampilkan preview (Opsional, cari elemen img terdekat)
-            // Khusus untuk modal tambah:
-            if (fileInput.attr('id') === 'inputFile') {
-                $('#preview-crop').attr('src', canvas.toDataURL()).removeClass('d-none');
+            // PREVIEW (lihat step 2)
+            const $preview = fileInput.closest('.mb-3').find('.preview-crop');
+            if ($preview.length) {
+                $preview.attr('src', canvas.toDataURL('image/jpeg', 0.85)).removeClass('d-none');
             }
 
-            // Tutup modal
             bsModalCrop.hide();
-        }, 'image/jpeg', 0.8); // Kompresi kualitas 0.8 (80%)
+        }, 'image/jpeg', 0.85);
     });
 </script>
 

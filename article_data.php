@@ -103,6 +103,9 @@
                                         <div class="mb-3">
                                             <label for="formGroupExampleInput2" class="form-label">Ganti Gambar</label>
                                             <input type="file" class="form-control" name="gambar">
+                                            <div class="mt-2">
+                                                <img src="" class="img-thumbnail preview-crop d-none" width="200" alt="Preview hasil crop">
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>

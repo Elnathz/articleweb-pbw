@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $prompt = "Buatkan ringkasan singkat untuk deskripsi thumbnail dari artikel berikut. " .
-            "Maksimal 2-3 kalimat. Bahasa Indonesia yang menarik dan informatif. " .
+            "Maksimal 2-3 kalimat. Bahasa Indonesia yang menarik, ringkas dan informatif. " .
             "Artikel: " . substr($content, 0, 1000) . "... " . // Batasi input biar ga kepanjangan
             "Output langsung teks ringkasannya saja tanpa format JSON.";
     }
