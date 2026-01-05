@@ -2,7 +2,7 @@
 error_reporting(0);
 header('Content-Type: application/json');
 
-$apiKey = "AIzaSyA0MZzLXkCGlhiUom1kzdv-_t1QGDTqGYA";
+$apiKey = "AIzaSyDJPuLL1O63hA_c1yC6OKMoFfnaKiV8kdA";
 $model = "gemini-2.5-flash";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
