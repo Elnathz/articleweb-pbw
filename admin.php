@@ -25,6 +25,8 @@ if (!isset($_SESSION['username'])) {
     rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
   <style>
     html {
       position: relative;
@@ -34,6 +36,16 @@ if (!isset($_SESSION['username'])) {
     body {
       margin-bottom: 100px;
       /* Margin bottom by footer height */
+    }
+
+    /* Style agar tampilan cropper rapi */
+    .img-container {
+      max-width: 100%;
+      max-height: 400px;
+    }
+
+    .img-container img {
+      max-width: 100%;
     }
 
     footer {

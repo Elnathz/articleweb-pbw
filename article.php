@@ -62,7 +62,10 @@
 
                             <div class="mb-3">
                                 <label for="formGroupExampleInput2" class="form-label">Gambar</label>
-                                <input type="file" class="form-control" name="gambar">
+                                <input type="file" class="form-control" name="gambar" id="inputFile">
+                                <div class="mt-2">
+                                    <img id="preview-crop" src="" class="img-thumbnail d-none" width="200">
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -74,6 +77,28 @@
             </div>
         </div>
         <!-- Akhir Modal Tambah-->
+        
+        <!-- modal crop -->
+        <div class="modal fade" id="modalCrop" tabindex="-1" aria-labelledby="modalCropLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCropLabel">Potong Gambar (Sesuaikan Area)</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="img-container">
+                            <img id="image-to-crop" src="" alt="Picture">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" id="btn-crop">Potong & Gunakan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal crop end -->
     </div>
 </div>
 
@@ -192,7 +217,7 @@
             }
         });
     });
-    
+
     // --- LOGIKA SUMMARY UNTUK MODAL EDIT (Dynamic) ---
     // Kita gunakan $(document).on karena tombol ini muncul dari AJAX (dynamic content)
     $(document).on('click', '.btn-generate-summary-edit', function() {
@@ -258,6 +283,97 @@
             var hlm = $(this).attr("id");
             load_data(hlm);
         });
+    });
+
+    // --- LOGIKA IMAGE CROPPER ---
+    var bsModalCrop = new bootstrap.Modal(document.getElementById('modalCrop'));
+    var image = document.getElementById('image-to-crop');
+    var cropper;
+    var fileInput; // Variable global untuk menyimpan input file yang sedang aktif
+
+    // Fungsi trigger saat ada input file yang berubah (baik di Tambah atau Edit)
+    // Kita gunakan delegate event agar bisa support Modal Edit juga nantinya
+    $(document).on('change', 'input[type="file"]', function(e) {
+        var files = e.target.files;
+
+        // Simpan elemen input yang sedang aktif
+        fileInput = $(this);
+
+        if (files && files.length > 0) {
+            var file = files[0];
+
+            // Cek apakah file adalah gambar
+            if (/^image\/\w+/.test(file.type)) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Set gambar ke modal crop
+                    image.src = e.target.result;
+
+                    // Tampilkan modal crop
+                    bsModalCrop.show();
+                };
+                reader.readAsDataURL(file);
+
+                // Reset value input dulu agar tidak langsung upload kalau batal crop
+                // (Nanti kita isi lagi setelah crop selesai)
+                $(this).val('');
+            } else {
+                alert('Pilih file gambar yang valid!');
+            }
+        }
+    });
+
+    // Saat Modal Crop muncul, inisialisasi Cropper
+    document.getElementById('modalCrop').addEventListener('shown.bs.modal', function() {
+        cropper = new Cropper(image, {
+            aspectRatio: 16 / 9, // RASIO 16:9 (Bisa diganti 1/1 untuk persegi, 4/3, dll)
+            viewMode: 1, // Agar crop box tidak keluar dari gambar
+            autoCropArea: 1, // Otomatis select semua area
+        });
+    });
+
+    // Saat Modal Crop ditutup, hancurkan cropper (biar ga berat/bug)
+    document.getElementById('modalCrop').addEventListener('hidden.bs.modal', function() {
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
+    });
+
+    // Tombol "Potong & Gunakan" diklik
+    document.getElementById('btn-crop').addEventListener('click', function() {
+        // Ambil hasil crop sebagai Blob (File object)
+        var canvas = cropper.getCroppedCanvas({
+            width: 800, // Resize lebar otomatis ke 800px (biar size tidak kegedean)
+            height: 450, // 800 * 9/16 = 450
+        });
+
+        canvas.toBlob(function(blob) {
+            // MAGIC STEP: Masukkan Blob hasil crop ke dalam Input File asli
+            // Ini membuat PHP seolah-olah menerima file upload normal
+
+            // 1. Buat file baru dari Blob
+            var croppedFile = new File([blob], "cropped_image.jpg", {
+                type: "image/jpeg",
+                lastModified: new Date().getTime()
+            });
+
+            // 2. Gunakan DataTransfer untuk memanipulasi input file
+            var dataTransfer = new DataTransfer();
+            dataTransfer.items.add(croppedFile);
+
+            // 3. Masukkan ke input file yang memicu trigger tadi
+            fileInput[0].files = dataTransfer.files;
+
+            // 4. Tampilkan preview (Opsional, cari elemen img terdekat)
+            // Khusus untuk modal tambah:
+            if (fileInput.attr('id') === 'inputFile') {
+                $('#preview-crop').attr('src', canvas.toDataURL()).removeClass('d-none');
+            }
+
+            // Tutup modal
+            bsModalCrop.hide();
+        }, 'image/jpeg', 0.8); // Kompresi kualitas 0.8 (80%)
     });
 </script>
 
