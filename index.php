@@ -235,70 +235,59 @@ include "koneksi.php";
 </head>
 
 <body>
-    <!-- Nav Begin -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">My Daily <span>Journal</span></a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-                class="collapse navbar-collapse"
-                id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-dark">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#profile">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#schedule">Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#article">Article</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#gallery">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./login.php" target="_blank">Login</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <button
-                            type="button"
-                            id="btn-light"
-                            class="border-0 p-1 btn bg-transparent">
-                            <img
-                                src="./img/light.png"
-                                width="40px"
-                                id="imgBtn-Light" />
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button
-                            type="button"
-                            id="btn-dark"
-                            class="border-0 p-1 bg-transparent btn">
-                            <img
-                                src="./img/dark.png"
-                                width="40px"
-                                id="imgBtnDark" />
-                        </button>
-                    </li>
-                </ul>
-            </div>
+    <!--Nav start-->
+    <nav
+      id="navbar"
+      class="navbar navbar-expand-lg navbar-light bg-light sticky-top"
+    >
+      <div class="container-fluid ps-4 border-light-subtle">
+        <a class="navbar-brand" href="#">My Daily <span>Journal</span></a>
+        <div class="d-flex align-items-center ms-auto">
+          <button id="btn-dark" class="btn btn-dark me-2" type="button">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button id="btn-light" class="btn btn-danger me-2" type="button">
+            <i class="bi bi-sun"></i>
+          </button>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
-    </nav>
-    <!-- Nav End -->
 
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#profile">Profile</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#schedule">Schedule</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#article">Article</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php" target="_blank">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--Nav end-->
+    
     <!-- hero begin -->
     <section
         id="hero"
