@@ -122,24 +122,7 @@ if (!isset($_SESSION['username'])) {
   <!-- content end -->
   <!-- footer begin -->
   <footer id="footer" class="text-center p-5 bg-danger-subtle">
-    <div>
-      <a
-        href="https://www.instagram.com/udinusofficial/?hl=id"
-        class="text-decoration-none">
-        <i class="bi bi-instagram h2 p-2 text-dark"></i>
-      </a>
-      <a
-        href="https://x.com/udinusofficial"
-        class="text-decoration-none">
-        <i class="bi bi-twitter-x h2 p-2 text-dark"></i>
-      </a>
-      <a
-        href="https://wa.me/6281325739811"
-        class="text-decoration-none">
-        <i class="bi bi-whatsapp h2 p-2 text-dark"></i>
-      </a>
-    </div>
-    <div>Farros Rifantiarno Ramadhani &copy; 2025</div>
+      <h6><span class="text-footer">Kelompok 1 </span>Pemrograman Berbasis Web &copy; 2026</h6>
   </footer>
   <!-- footer end -->
 </body>

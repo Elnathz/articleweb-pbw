@@ -59,17 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // Fix IPv6
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Fix SSL Localhost
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $response = curl_exec($ch); // kirim ke gemini dan ambil generatenya
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // cek pesan
 
-    if (curl_errno($ch)) {
-        echo json_encode(['error' => 'Koneksi Gagal: ' . curl_error($ch)]);
+    if (curl_errno($ch)) { // handling error
+        echo json_encode(['error' => 'Koneksi Gagal: ' . curl_error($ch)]); 
     } elseif ($httpCode !== 200) {
         $decoded = json_decode($response, true);
         echo json_encode(['error' => "API Error ($httpCode): " . ($decoded['error']['message'] ?? '')]);
     } else {
-        $decoded = json_decode($response, true);
-        $textResult = $decoded['candidates'][0]['content']['parts'][0]['text'] ?? '';
+        $decoded = json_decode($response, true); // array hasil dari gemini
+        $textResult = $decoded['candidates'][0]['content']['parts'][0]['text'] ?? ''; // membagi per part
 
         // Bersihkan hasil
         $cleanText = str_replace(['```json', '```'], '', $textResult);

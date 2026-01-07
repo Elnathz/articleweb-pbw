@@ -36,6 +36,10 @@ include "koneksi.php";
             animation: teksPelangi 5s alternate infinite;
         }
 
+        #footer .text-footer div span{
+            animation: teksPelangi 5s alternate infinite;
+        }
+
         .card {
             transition: transform 0.4s ease-in-out;
         }
@@ -382,7 +386,7 @@ include "koneksi.php";
                                         <td>
                                             :
                                             <?php
-                                                $wa = str_replace(['+', ' '], '', $row['telepon']);
+                                            $wa = str_replace(['+', ' '], '', $row['telepon']);
                                             ?>
                                             <a href="https://wa.me/<?= $wa ?>">
                                                 <i class="bi bi-whatsapp"></i>
@@ -657,25 +661,8 @@ include "koneksi.php";
     <!-- gallery end -->
 
     <!-- Footer begin -->
-    <footer id="footer" class="text-center p-5">
-        <div>
-            <a
-                href="https://www.instagram.com/udinusofficial/?hl=id"
-                class="text-decoration-none">
-                <i class="bi bi-instagram h2 p-2 text-dark"></i>
-            </a>
-            <a
-                href="https://x.com/udinusofficial"
-                class="text-decoration-none">
-                <i class="bi bi-twitter-x h2 p-2 text-dark"></i>
-            </a>
-            <a
-                href="https://wa.me/6281325739811"
-                class="text-decoration-none">
-                <i class="bi bi-whatsapp h2 p-2 text-dark"></i>
-            </a>
-        </div>
-        <div>Farros Rifantiarno Ramadhani &copy; 2025</div>
+    <footer id="footer" class="text-center p-3">
+        <h6><span class="text-footer">Kelompok 1 </span>Pemrograman Berbasis Web &copy; 2026</h6>
     </footer>
     <!-- footer end -->
 
