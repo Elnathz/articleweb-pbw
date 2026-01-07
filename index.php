@@ -858,6 +858,12 @@ include "koneksi.php";
         }
 
         document.getElementById("btn-dark").onclick = function() {
+            //navbar
+            document
+                .getElemenById("navbar-light")
+                .classlist.remove("bg-light","navbar-light")
+                .classlist.add("bg-dark","navbar-dark")
+
             // hero
             document
                 .getElementById("hero")
@@ -967,6 +973,12 @@ include "koneksi.php";
         };
 
         document.getElementById("btn-light").onclick = function() {
+            //navbar
+            document
+                .getElemenById("navbar-dark")
+                .classlist.remove("bg-dark","navbar-dark)
+                .classlist.add("bg-light","navbar-light")
+
             // hero
             document
                 .getElementById("hero")
