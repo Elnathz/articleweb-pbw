@@ -99,6 +99,7 @@
                                                 </button>
                                             </div>
                                             <div id="loading-summary<?= $row['id'] ?>" class="d-none text-muted"><small>Sedang meringkas...</small></div>
+                                            <div id="summary-notice<?= $row['id'] ?>" class="mt-2"></div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="formGroupExampleInput2" class="form-label">Ganti Gambar</label>

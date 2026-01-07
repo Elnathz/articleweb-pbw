@@ -41,6 +41,7 @@
                                     </div>
 
                                     <div id="ai-results" class="list-group"></div>
+                                    <div id="ai-notice" class="mt-2"></div>
                                 </div>
                             </div>
 
@@ -68,6 +69,7 @@
                                 <div id="loading-summary" class="d-none text-muted">
                                     <small>Sedang meringkas...</small>
                                 </div>
+                                <div id="summary-notice" class="mt-2"></div>
                             </div>
 
                             <div class="mb-3">
@@ -129,14 +131,47 @@
 </div>
 
 <script>
+    function escapeHtml(str) {
+        return String(str ?? '').replace(/[&<>"']/g, (m) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        } [m]));
+    }
+
+    function showNotice($el, message, type = 'danger') {
+        if (!$el || !$el.length) return;
+        $el.html(`
+    <div class="alert alert-${type} py-2 mb-0" role="alert">
+      ${escapeHtml(message)}
+    </div>
+  `);
+    }
+
+    function clearNotice($el) {
+        if ($el && $el.length) $el.empty();
+    }
+
+    function friendlyAjaxError(xhr) {
+        // xhr.status === 0 biasanya koneksi putus / blocked
+        if (xhr.status === 0) return 'Koneksi bermasalah. Cek internet kamu lalu coba lagi.';
+        if (xhr.status >= 500) return 'Server sedang bermasalah. Coba lagi sebentar ya.';
+        return 'Terjadi kendala. Silakan coba lagi.';
+    }
+
     // =========================
     // --- Logika Generate AI ---
     // =========================
     $('#btn-generate').click(function() {
         var topic = $('#ai-topic').val();
+        const $notice = $('#ai-notice');
+
+        clearNotice($notice);
 
         if (topic === '') {
-            alert('Harap isi topik terlebih dahulu!');
+            showNotice($notice, 'Topik belum diisi. Isi dulu ya.', 'warning');
             return;
         }
 
@@ -148,42 +183,58 @@
             url: 'generate_article.php',
             method: 'POST',
             contentType: 'application/json',
+            dataType: 'json',
             data: JSON.stringify({
+                type: 'ide',
                 topic: topic
             }),
-            success: function(response) {
+            success: function(res) {
                 $('#loading-spinner').addClass('d-none');
                 $('#btn-generate').prop('disabled', false);
 
-                if (response.error) {
-                    alert('Error: ' + response.error);
+                if (!res || res.ok === false) {
+                    showNotice($notice, res?.message || 'AI sedang tidak tersedia. Coba lagi nanti ya.', 'warning');
                     return;
                 }
 
-                response.forEach(function(item, index) {
-                    var limitIsi = item.isi.substring(0, 100) + '...';
+                const items = res.items;
+                if (!Array.isArray(items) || items.length === 0) {
+                    showNotice($notice, 'AI tidak menghasilkan ide. Coba ganti topik atau klik lagi ya.', 'warning');
+                    return;
+                }
 
+                clearNotice($notice);
+
+                items.forEach(function(item, index) {
+                    var isi = item.isi || '';
+                    var judul = item.judul || '(Tanpa judul)';
+                    var limitIsi = isi.substring(0, 100) + '...';
+
+                    // NOTE: ini tetap versi kamu, tapi rawan quote.
+                    // Kalau mau aman banget, pakai cache + .text() (aku bisa bikinin juga).
                     var htmlItem = `
-            <button type="button" class="list-group-item list-group-item-action ai-option"
-              data-judul="${item.judul}"
-              data-isi="${item.isi}">
-              <div class="d-flex w-100 justify-content-between">
-                <h6 class="mb-1 fw-bold">Opsi ${index + 1}: ${item.judul}</h6>
-              </div>
-              <small class="text-body-secondary">${limitIsi}</small>
-            </button>
-          `;
+          <button type="button" class="list-group-item list-group-item-action ai-option"
+            data-judul="${escapeHtml(judul)}"
+            data-isi="${escapeHtml(isi)}">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1 fw-bold">Opsi ${index + 1}: ${escapeHtml(judul)}</h6>
+            </div>
+            <small class="text-body-secondary">${escapeHtml(limitIsi)}</small>
+          </button>
+        `;
                     $('#ai-results').append(htmlItem);
                 });
             },
-            error: function(xhr, status, error) {
+            error: function(xhr) {
                 $('#loading-spinner').addClass('d-none');
                 $('#btn-generate').prop('disabled', false);
-                alert('Terjadi kesalahan koneksi ke AI.');
-                console.error(error);
+
+                const msg = xhr.responseJSON?.message || friendlyAjaxError(xhr);
+                showNotice($notice, msg, 'warning');
             }
         });
     });
+
 
     $(document).on('click', '.ai-option', function() {
         var judulDipilih = $(this).data('judul');
@@ -201,9 +252,12 @@
     // ============================
     $('#btn-summary').click(function() {
         var isiArtikel = $('#isi').val();
+        const $notice = $('#summary-notice');
+
+        clearNotice($notice);
 
         if (isiArtikel.length < 50) {
-            alert('Isi artikel terlalu pendek untuk diringkas. Silakan tulis lebih banyak!');
+            showNotice($notice, 'Isi artikel terlalu pendek untuk diringkas. Tambah sedikit ya.', 'warning');
             return;
         }
 
@@ -215,28 +269,35 @@
             url: 'generate_article.php',
             method: 'POST',
             contentType: 'application/json',
+            dataType: 'json',
             data: JSON.stringify({
                 type: 'summary',
                 content: isiArtikel
             }),
-            success: function(response) {
+            success: function(res) {
                 $('#loading-summary').addClass('d-none');
                 $('#btn-summary').prop('disabled', false);
 
-                if (response.error) {
-                    alert('Error: ' + response.error);
+                if (!res || res.ok === false) {
                     $('#summary').val('');
-                } else {
-                    $('#summary').val(response.summary);
+                    showNotice($notice, res?.message || 'AI sedang tidak tersedia. Coba lagi nanti ya.', 'warning');
+                    return;
                 }
+
+                $('#summary').val(res.summary || '');
+                clearNotice($notice);
             },
-            error: function() {
+            error: function(xhr) {
                 $('#loading-summary').addClass('d-none');
                 $('#btn-summary').prop('disabled', false);
-                alert('Gagal menghubungi AI.');
+                $('#summary').val('');
+
+                const msg = xhr.responseJSON?.message || friendlyAjaxError(xhr);
+                showNotice($notice, msg, 'warning');
             }
         });
     });
+
 
     // ==================================================
     // --- LOGIKA SUMMARY UNTUK MODAL EDIT (Dynamic) ---
@@ -247,9 +308,12 @@
         var isiArtikel = $('#isi' + id).val();
         var loading = $('#loading-summary' + id);
         var output = $('#summary' + id);
+        var notice = $('#summary-notice' + id);
 
-        if (isiArtikel.length < 50) {
-            alert('Isi artikel terlalu pendek untuk diringkas. Silakan tulis lebih banyak!');
+        clearNotice(notice);
+
+        if (!isiArtikel || isiArtikel.length < 50) {
+            showNotice(notice, 'Isi artikel terlalu pendek untuk diringkas. Tambah sedikit ya.', 'warning');
             return;
         }
 
@@ -261,28 +325,35 @@
             url: 'generate_article.php',
             method: 'POST',
             contentType: 'application/json',
+            dataType: 'json',
             data: JSON.stringify({
                 type: 'summary',
                 content: isiArtikel
             }),
-            success: function(response) {
+            success: function(res) {
                 loading.addClass('d-none');
                 btn.prop('disabled', false);
 
-                if (response.error) {
-                    alert('Error: ' + response.error);
+                if (!res || res.ok === false) {
                     output.val('');
-                } else {
-                    output.val(response.summary);
+                    showNotice(notice, res?.message || 'AI sedang tidak tersedia. Coba lagi nanti ya.', 'warning');
+                    return;
                 }
+
+                output.val(res.summary || '');
+                clearNotice(notice);
             },
-            error: function() {
+            error: function(xhr) {
                 loading.addClass('d-none');
                 btn.prop('disabled', false);
-                alert('Gagal menghubungi AI.');
+                output.val('');
+
+                const msg = xhr.responseJSON?.message || friendlyAjaxError(xhr);
+                showNotice(notice, msg, 'warning');
             }
         });
     });
+
 
     // =========================
     // --- Load Data Article ---

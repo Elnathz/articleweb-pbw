@@ -352,7 +352,7 @@ include "koneksi.php";
                                 <img
                                     src="img/<?= $row['foto'] ?>"
                                     alt="<?= $row['nama'] ?>"
-                                    class="rounded-circle object-fit-cover"
+                                    class="photo-profile rounded-circle object-fit-cover"
                                     width="200"
                                     height="200" />
                             </div>
