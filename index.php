@@ -36,7 +36,7 @@ include "koneksi.php";
             animation: teksPelangi 5s alternate infinite;
         }
 
-        #footer .text-footer div span{
+        .text-footer {
             animation: teksPelangi 5s alternate infinite;
         }
 
@@ -256,7 +256,7 @@ include "koneksi.php";
             <div
                 class="collapse navbar-collapse"
                 id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-dark">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-dark align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Home</a>
                     </li>
@@ -275,26 +275,12 @@ include "koneksi.php";
                     <li class="nav-item">
                         <a class="nav-link" href="./login.php" target="_blank">Login</a>
                     </li>
-                    <li class="nav-item me-3">
-                        <button
-                            type="button"
-                            id="btn-light"
-                            class="border-0 p-1 btn bg-transparent">
-                            <img
-                                src="./img/light.png"
-                                width="40px"
-                                id="imgBtn-Light" />
-                        </button>
-                    </li>
                     <li class="nav-item">
                         <button
                             type="button"
-                            id="btn-dark"
-                            class="border-0 p-1 bg-transparent btn">
-                            <img
-                                src="./img/dark.png"
-                                width="40px"
-                                id="imgBtnDark" />
+                            id="nav-theme-toggle"
+                            class="border-0 btn bg-transparent">
+                            <i class="bi bi-moon-stars text-dark"></i>
                         </button>
                     </li>
                 </ul>
@@ -689,239 +675,150 @@ include "koneksi.php";
                 waktu.getSeconds();
         }
 
-        document.getElementById("btn-dark").onclick = function() {
-            // hero
-            document
-                .getElementById("hero")
-                .classList.remove("bg-danger-subtle");
-            document.getElementById("hero").classList.add("bg-secondary");
-            document
-                .getElementById("hero-text")
-                .classList.remove("text-dark");
-            document
-                .getElementById("hero-text")
-                .classList.add("text-light");
+        document.getElementById("nav-theme-toggle").onclick = function() {
+            const themeIcon = this.querySelector("i");
+            const isDarkMode = themeIcon.classList.contains("bi-sun-fill");
 
-            document
-                .getElementById("timestamp")
-                .classList.remove("text-dark");
-            document
-                .getElementById("timestamp")
-                .classList.add("text-light");
+            if (!isDarkMode) {
+                // Switch to Dark Mode
+                themeIcon.classList.remove("bi-moon-stars", "text-dark");
+                themeIcon.classList.add("bi-sun-fill", "text-light");
 
-            // profile
-            document
-                .getElementById("profile")
-                .classList.remove("bg-light", "text-dark");
-            document
-                .getElementById("profile")
-                .classList.add("bg-dark", "text-light");
+                // hero
+                document.getElementById("hero").classList.remove("bg-danger-subtle");
+                document.getElementById("hero").classList.add("bg-secondary");
+                document.getElementById("hero-text").classList.remove("text-dark");
+                document.getElementById("hero-text").classList.add("text-light");
+                document.getElementById("timestamp").classList.remove("text-dark");
+                document.getElementById("timestamp").classList.add("text-light");
 
-            const textTable = document.getElementsByClassName("text-table");
-            for (let i = 0; i < textTable.length; i++) {
-                textTable[i].classList.remove("table-light");
-            }
-            for (let i = 0; i < textTable.length; i++) {
-                textTable[i].classList.add("table-dark");
-            }
+                // profile
+                document.getElementById("profile").classList.remove("bg-light", "text-dark");
+                document.getElementById("profile").classList.add("bg-dark", "text-light");
 
-            const profileText = document.getElementsByClassName("profile-text");
-            for (let i = 0; i < profileText.length; i++) {
-                profileText[i].classList.remove("border-dark");
-            }
-            for (let i = 0; i < profileText.length; i++) {
-                profileText[i].classList.add("border-white");
-            }
+                const textTable = document.getElementsByClassName("text-table");
+                for (let i = 0; i < textTable.length; i++) {
+                    textTable[i].classList.remove("table-light");
+                    textTable[i].classList.add("table-dark");
+                }
 
-            // schedule
-            document
-                .getElementById("schedule")
-                .classList.remove("bg-danger-subtle", "text-dark");
-            document
-                .getElementById("schedule")
-                .classList.add("bg-secondary", "text-light");
+                const profileText = document.getElementsByClassName("profile-text");
+                for (let i = 0; i < profileText.length; i++) {
+                    profileText[i].classList.remove("border-dark");
+                    profileText[i].classList.add("border-white");
+                }
 
-            const scheduleCard =
-                document.getElementsByClassName("schedule-card");
+                // schedule
+                document.getElementById("schedule").classList.remove("bg-danger-subtle", "text-dark");
+                document.getElementById("schedule").classList.add("bg-secondary", "text-light");
 
-            for (let i = 0; i < scheduleCard.length; i++) {
-                scheduleCard[i].classList.remove("bg-light", "text-dark");
-            }
+                const scheduleCard = document.getElementsByClassName("schedule-card");
+                for (let i = 0; i < scheduleCard.length; i++) {
+                    scheduleCard[i].classList.remove("bg-light", "text-dark");
+                    scheduleCard[i].classList.add("bg-dark", "text-light");
+                }
 
-            for (let i = 0; i < scheduleCard.length; i++) {
-                scheduleCard[i].classList.add("bg-dark", "text-light");
-            }
+                // article
+                document.getElementById("article").classList.remove("bg-light", "text-dark");
+                document.getElementById("article").classList.add("bg-dark", "text-light");
 
-            // article
-            document
-                .getElementById("article")
-                .classList.remove("bg-light", "text-dark");
-            document
-                .getElementById("article")
-                .classList.add("bg-dark", "text-light");
+                const articleCard = document.getElementsByClassName("article-card");
+                for (let i = 0; i < articleCard.length; i++) {
+                    articleCard[i].classList.remove("bg-light", "text-dark");
+                    articleCard[i].classList.add("bg-secondary", "text-light");
+                }
 
-            const articleCard =
-                document.getElementsByClassName("article-card");
-            const textFooter =
-                document.getElementsByClassName("text-footer");
+                const textFooter = document.getElementsByClassName("text-footer");
+                for (let i = 0; i < textFooter.length; i++) {
+                    textFooter[i].classList.remove("text-body-secondary");
+                    textFooter[i].classList.add("text-light");
+                }
 
-            for (let i = 0; i < articleCard.length; i++) {
-                articleCard[i].classList.remove("bg-light", "text-dark");
-            }
+                // gallery
+                document.getElementById("gallery").classList.remove("bg-danger-subtle", "text-dark");
+                document.getElementById("gallery").classList.add("bg-secondary", "text-light");
 
-            for (let i = 0; i < articleCard.length; i++) {
-                articleCard[i].classList.add("bg-secondary", "text-light");
-            }
+                // footer
+                document.getElementById("footer").classList.remove("bg-light", "text-dark");
+                document.getElementById("footer").classList.add("bg-dark", "text-light");
 
-            for (let i = 0; i < textFooter.length; i++) {
-                textFooter[i].classList.remove("text-body-secondary");
-            }
+                const logo = document.getElementsByClassName("bi");
+                
+                themeIcon.classList.remove("text-light", "text-dark");
+                themeIcon.classList.add("text-dark"); // Always dark if navbar is light
 
-            for (let i = 0; i < textFooter.length; i++) {
-                textFooter[i].classList.add("text-light");
-            }
+            } else {
+                // Switch to Light Mode
+                themeIcon.classList.remove("bi-sun-fill", "text-light");
+                themeIcon.classList.add("bi-moon-stars", "text-dark");
 
-            // gallery
-            document
-                .getElementById("gallery")
-                .classList.remove("bg-danger-subtle", "text-dark");
-            document
-                .getElementById("gallery")
-                .classList.add("bg-secondary", "text-light");
+                // hero
+                document.getElementById("hero").classList.remove("bg-secondary");
+                document.getElementById("hero").classList.add("bg-danger-subtle");
+                document.getElementById("hero-text").classList.remove("text-light");
+                document.getElementById("hero-text").classList.add("text-dark");
+                document.getElementById("timestamp").classList.remove("text-light");
+                document.getElementById("timestamp").classList.add("text-dark");
 
-            // footer
-            document
-                .getElementById("footer")
-                .classList.remove("bg-light", "text-dark");
-            document
-                .getElementById("footer")
-                .classList.add("bg-dark", "text-light");
+                // profile
+                document.getElementById("profile").classList.remove("bg-dark", "text-light");
+                document.getElementById("profile").classList.add("bg-light", "text-dark");
 
-            const logo = document.getElementsByClassName("bi");
-            for (let i = 0; i < logo.length; i++) {
-                logo[i].classList.remove("text-dark");
-            }
+                const textTable = document.getElementsByClassName("text-table");
+                for (let i = 0; i < textTable.length; i++) {
+                    textTable[i].classList.remove("table-dark");
+                    textTable[i].classList.add("table-light");
+                }
 
-            for (let i = 0; i < logo.length; i++) {
-                logo[i].classList.add("text-light");
-            }
-        };
+                const profileText = document.getElementsByClassName("profile-text");
+                for (let i = 0; i < profileText.length; i++) {
+                    profileText[i].classList.remove("border-white");
+                    profileText[i].classList.add("border-dark");
+                }
 
-        document.getElementById("btn-light").onclick = function() {
-            // hero
-            document
-                .getElementById("hero")
-                .classList.remove("bg-secondary");
-            document
-                .getElementById("hero")
-                .classList.add("bg-danger-subtle");
+                // schedule
+                document.getElementById("schedule").classList.remove("bg-secondary", "text-light");
+                document.getElementById("schedule").classList.add("bg-danger-subtle", "text-dark");
 
-            document
-                .getElementById("hero-text")
-                .classList.remove("text-light");
-            document.getElementById("hero-text").classList.add("text-dark");
+                const scheduleCard = document.getElementsByClassName("schedule-card");
+                for (let i = 0; i < scheduleCard.length; i++) {
+                    scheduleCard[i].classList.remove("bg-dark", "text-light");
+                    scheduleCard[i].classList.add("bg-light", "text-dark");
+                }
 
-            document
-                .getElementById("timestamp")
-                .classList.remove("text-light");
-            document.getElementById("timestamp").classList.add("text-dark");
+                // article
+                document.getElementById("article").classList.remove("bg-dark", "text-light");
+                document.getElementById("article").classList.add("bg-light", "text-dark");
 
-            // profile
-            document
-                .getElementById("profile")
-                .classList.add("bg-light", "text-dark");
-            document
-                .getElementById("profile")
-                .classList.remove("bg-dark", "text-light");
+                const articleCard = document.getElementsByClassName("article-card");
+                for (let i = 0; i < articleCard.length; i++) {
+                    articleCard[i].classList.remove("bg-secondary", "text-light");
+                    articleCard[i].classList.add("bg-light", "text-dark");
+                }
 
-            const textTable = document.getElementsByClassName("text-table");
-            for (let i = 0; i < textTable.length; i++) {
-                textTable[i].classList.add("table-light");
-            }
-            for (let i = 0; i < textTable.length; i++) {
-                textTable[i].classList.remove("table-dark");
-            }
+                const textFooter = document.getElementsByClassName("text-footer");
+                for (let i = 0; i < textFooter.length; i++) {
+                    textFooter[i].classList.remove("text-light");
+                    textFooter[i].classList.add("text-body-secondary");
+                }
 
-            const profileText = document.getElementsByClassName("profile-text");
-            for (let i = 0; i < profileText.length; i++) {
-                profileText[i].classList.add("border-dark");
-            }
-            for (let i = 0; i < profileText.length; i++) {
-                profileText[i].classList.remove("border-white");
-            }
+                // gallery
+                document.getElementById("gallery").classList.remove("bg-secondary", "text-light");
+                document.getElementById("gallery").classList.add("bg-danger-subtle", "text-dark");
 
-            // schedule
-            document
-                .getElementById("schedule")
-                .classList.remove("bg-secondary", "text-light");
-            document
-                .getElementById("schedule")
-                .classList.add("bg-danger-subtle", "text-dark");
+                // footer
+                document.getElementById("footer").classList.remove("bg-dark", "text-light");
+                document.getElementById("footer").classList.add("bg-light", "text-dark");
 
-            const scheduleCard =
-                document.getElementsByClassName("schedule-card");
-
-            for (let i = 0; i < scheduleCard.length; i++) {
-                scheduleCard[i].classList.remove("bg-dark", "text-light");
-            }
-
-            for (let i = 0; i < scheduleCard.length; i++) {
-                scheduleCard[i].classList.add("bg-light", "text-dark");
-            }
-
-            //article
-            document
-                .getElementById("article")
-                .classList.remove("bg-dark", "text-light");
-            document
-                .getElementById("article")
-                .classList.add("bg-light", "text-dark");
-
-            const articleCard =
-                document.getElementsByClassName("article-card");
-            const textFooter =
-                document.getElementsByClassName("text-footer");
-
-            for (let i = 0; i < articleCard.length; i++) {
-                articleCard[i].classList.remove(
-                    "bg-secondary",
-                    "text-light"
-                );
-            }
-            for (let i = 0; i < articleCard.length; i++) {
-                articleCard[i].classList.add("bg-light", "text-dark");
-            }
-
-            for (let i = 0; i < textFooter.length; i++) {
-                textFooter[i].classList.remove("text-light");
-            }
-
-            for (let i = 0; i < textFooter.length; i++) {
-                textFooter[i].classList.add("text-body-secondary");
-            }
-
-            // gallery
-            document
-                .getElementById("gallery")
-                .classList.remove("bg-secondary", "text-light");
-            document
-                .getElementById("gallery")
-                .classList.add("bg-danger-subtle", "text-dark");
-
-            // footer
-            document
-                .getElementById("footer")
-                .classList.remove("bg-dark", "text-light");
-            document
-                .getElementById("footer")
-                .classList.add("bg-light", "text-dark");
-
-            const logo = document.getElementsByClassName("bi");
-            for (let i = 0; i < logo.length; i++) {
-                logo[i].classList.remove("text-light");
-            }
-            for (let i = 0; i < logo.length; i++) {
-                logo[i].classList.add("text-dark");
+                const logo = document.getElementsByClassName("bi");
+                for (let i = 0; i < logo.length; i++) {
+                    logo[i].classList.remove("text-light");
+                    logo[i].classList.add("text-dark");
+                }
+                
+                // Override for our button
+                themeIcon.classList.remove("text-light", "text-dark");
+                themeIcon.classList.add("text-dark");
             }
         };
     </script>
