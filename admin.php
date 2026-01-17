@@ -66,24 +66,82 @@ if (!isset($_SESSION['username'])) {
     
     /* Modal responsive untuk HP */
     @media (max-width: 768px) {
+      /* Fix modal z-index issues */
+      .modal {
+        z-index: 1055 !important;
+      }
+      
+      .modal-backdrop {
+        z-index: 1050 !important;
+      }
+      
       .modal-dialog {
-        margin: 0.5rem;
-        max-width: calc(100% - 1rem);
+        margin: 0 !important;
+        max-width: 100% !important;
+        height: 100%;
+        z-index: 1056 !important;
+        pointer-events: auto !important;
       }
       
       .modal-dialog.modal-lg {
-        max-width: calc(100% - 1rem);
+        max-width: 100% !important;
       }
       
       .modal-content {
-        max-height: 90vh;
+        height: 100%;
+        max-height: 100vh;
         overflow-y: auto;
+        border-radius: 0 !important;
+        z-index: 1057 !important;
+        pointer-events: auto !important;
+        position: relative !important;
       }
       
       .modal-body {
         padding: 1rem;
-        max-height: 60vh;
         overflow-y: auto;
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 1058 !important;
+      }
+      
+      /* Ensure all form elements are clickable */
+      .modal-body .form-control,
+      .modal-body textarea,
+      .modal-body input,
+      .modal-body button,
+      .modal-body .btn {
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 1059 !important;
+      }
+      
+      .modal-header,
+      .modal-footer {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 1058 !important;
+      }
+      
+      .modal-footer .btn,
+      .modal-footer input[type="submit"] {
+        flex: 1 1 auto;
+        min-width: 100px;
+        pointer-events: auto !important;
+      }
+      
+      /* Remove any blocking overlays */
+      .table-responsive {
+        overflow: visible !important;
+        position: static !important;
+      }
+      
+      .modal-container {
+        position: relative;
+        z-index: auto;
       }
       
       .modal-header,

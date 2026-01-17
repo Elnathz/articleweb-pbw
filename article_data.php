@@ -21,7 +21,12 @@
         $sql = "SELECT * FROM article ORDER BY tanggal DESC LIMIT $limit_start, $limit";
         $hasil = $conn->query($sql);
 
+        // Array untuk menyimpan data modal
+        $modals = [];
+
         while ($row = $hasil->fetch_assoc()) {
+            // Simpan data untuk modal
+            $modals[] = $row;
         ?>
             <tr>
                 <td><?= $no++ ?></td>
@@ -70,89 +75,6 @@
                 <td>
                     <a href="#" title="edit" class="badge rounded-pill text-bg-success" data-bs-toggle="modal" data-bs-target="#modalEdit<?= $row["id"] ?>"><i class="bi bi-pencil"></i></a>
                     <a href="#" title="delete" class="badge rounded-pill text-bg-danger" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $row["id"] ?>"><i class="bi bi-x-circle"></i></a>
-
-                    <div class="modal fade" id="modalEdit<?= $row["id"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Article</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form method="post" action="" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="formGroupExampleInput" class="form-label">Judul</label>
-                                            <input type="hidden" name="id" value="<?= $row["id"] ?>">
-                                            <input type="text" class="form-control" name="judul" placeholder="Tuliskan Judul Artikel" value="<?= $row["judul"] ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="floatingTextarea2">Isi</label>
-                                            <textarea class="form-control" placeholder="Tuliskan Isi Artikel" name="isi" id="isi<?= $row['id'] ?>" required><?= $row["isi"] ?></textarea>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="floatingTextarea2">Ringkasan (Thumbnail)</label>
-                                            <div class="input-group">
-                                                <textarea class="form-control" placeholder="Ringkasan singkat..." name="summary" id="summary<?= $row['id'] ?>" rows="2"><?= $row["summary"] ?></textarea>
-                                                <button class="btn btn-warning text-dark btn-generate-summary-edit" type="button" data-id="<?= $row['id'] ?>">
-                                                    <i class="bi bi-magic"></i>
-                                                </button>
-                                            </div>
-                                            <div id="loading-summary<?= $row['id'] ?>" class="d-none text-muted"><small>Sedang meringkas...</small></div>
-                                            <div id="summary-notice<?= $row['id'] ?>" class="mt-2"></div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formGroupExampleInput2" class="form-label">Ganti Gambar</label>
-                                            <input type="file" class="form-control" name="gambar">
-                                            <div class="mt-2">
-                                                <img src="" class="img-thumbnail preview-crop d-none" width="200" alt="Preview hasil crop">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>
-                                            <?php
-                                            if ($row["gambar"] != '') {
-                                                if (file_exists('img/' . $row["gambar"] . '')) {
-                                            ?>
-                                                    <br><img src="img/<?= $row["gambar"] ?>" width="100">
-                                            <?php
-                                                }
-                                            }
-                                            ?>
-                                            <input type="hidden" name="gambar_lama" value="<?= $row["gambar"] ?>">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <input type="submit" value="simpan" name="simpan" class="btn btn-primary">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="modalHapus<?= $row["id"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Konfirmasi Hapus Article</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form method="post" action="" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="formGroupExampleInput" class="form-label">Yakin akan menghapus artikel "<strong><?= $row["judul"] ?></strong>"?</label>
-                                            <input type="hidden" name="id" value="<?= $row["id"] ?>">
-                                            <input type="hidden" name="gambar" value="<?= $row["gambar"] ?>">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">batal</button>
-                                        <input type="submit" value="hapus" name="hapus" class="btn btn-primary">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </td>
             </tr>
         <?php
@@ -160,6 +82,102 @@
         ?>
     </tbody>
 </table>
+
+<!-- MODAL CONTAINER - Di luar tabel agar tidak tertutup -->
+<div class="modal-container">
+<?php
+// Render semua modal di luar tabel
+foreach ($modals as $row) {
+?>
+    <!-- Modal Edit -->
+    <div class="modal fade" id="modalEdit<?= $row["id"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Article</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Judul</label>
+                            <input type="hidden" name="id" value="<?= $row["id"] ?>">
+                            <input type="text" class="form-control" name="judul" placeholder="Tuliskan Judul Artikel" value="<?= $row["judul"] ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="floatingTextarea2">Isi</label>
+                            <textarea class="form-control" placeholder="Tuliskan Isi Artikel" name="isi" id="isi<?= $row['id'] ?>" required><?= $row["isi"] ?></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="floatingTextarea2">Ringkasan (Thumbnail)</label>
+                            <div class="input-group">
+                                <textarea class="form-control" placeholder="Ringkasan singkat..." name="summary" id="summary<?= $row['id'] ?>" rows="2"><?= $row["summary"] ?></textarea>
+                                <button class="btn btn-warning text-dark btn-generate-summary-edit" type="button" data-id="<?= $row['id'] ?>">
+                                    <i class="bi bi-magic"></i>
+                                </button>
+                            </div>
+                            <div id="loading-summary<?= $row['id'] ?>" class="d-none text-muted"><small>Sedang meringkas...</small></div>
+                            <div id="summary-notice<?= $row['id'] ?>" class="mt-2"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Ganti Gambar</label>
+                            <input type="file" class="form-control" name="gambar">
+                            <div class="mt-2">
+                                <img src="" class="img-thumbnail preview-crop d-none" width="200" alt="Preview hasil crop">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>
+                            <?php
+                            if ($row["gambar"] != '') {
+                                if (file_exists('img/' . $row["gambar"] . '')) {
+                            ?>
+                                    <br><img src="img/<?= $row["gambar"] ?>" width="100">
+                            <?php
+                                }
+                            }
+                            ?>
+                            <input type="hidden" name="gambar_lama" value="<?= $row["gambar"] ?>">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" value="simpan" name="simpan" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus<?= $row["id"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Konfirmasi Hapus Article</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Yakin akan menghapus artikel "<strong><?= $row["judul"] ?></strong>"?</label>
+                            <input type="hidden" name="id" value="<?= $row["id"] ?>">
+                            <input type="hidden" name="gambar" value="<?= $row["gambar"] ?>">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">batal</button>
+                        <input type="submit" value="hapus" name="hapus" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php
+}
+?>
+</div>
 
 <?php
 $sql1 = "SELECT * FROM article";
