@@ -28,13 +28,19 @@ if (!isset($_SESSION['username'])) {
   <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
   <style>
     html {
-      position: relative;
-      min-height: 100%;
+      height: 100%;
     }
 
     body {
-      margin-bottom: 100px;
-      /* Margin bottom by footer height */
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    /* Content area grows to fill available space */
+    #content {
+      flex: 1 0 auto;
     }
 
     /* Style agar tampilan cropper rapi */
@@ -50,11 +56,235 @@ if (!isset($_SESSION['username'])) {
     }
 
     footer {
-      position: absolute;
-      bottom: 0;
+      flex-shrink: 0;
       width: 100%;
-      height: 100px;
-      /* Set the fixed height of the footer here */
+    }
+
+    /* ========================================
+       RESPONSIVE STYLES FOR MOBILE
+    ======================================== */
+    
+    /* Modal responsive untuk HP */
+    @media (max-width: 768px) {
+      .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+      }
+      
+      .modal-dialog.modal-lg {
+        max-width: calc(100% - 1rem);
+      }
+      
+      .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      
+      .modal-body {
+        padding: 1rem;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      
+      .modal-header,
+      .modal-footer {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      .modal-footer .btn {
+        flex: 1 1 auto;
+        min-width: 100px;
+      }
+      
+      /* Input group responsive */
+      .input-group {
+        flex-wrap: wrap;
+      }
+      
+      .input-group > .form-control,
+      .input-group > textarea.form-control {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+        border-radius: 0.375rem !important;
+      }
+      
+      .input-group > .btn {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        border-radius: 0.375rem !important;
+      }
+      
+      /* AI card specific fix */
+      .card.bg-light .card-body .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .card.bg-light .card-body .input-group > input,
+      .card.bg-light .card-body .input-group > .btn {
+        width: 100% !important;
+        flex: none !important;
+      }
+      
+      /* Section padding responsive */
+      #content {
+        padding: 1rem !important;
+      }
+      
+      /* Table responsive */
+      .table-responsive {
+        font-size: 0.875rem;
+      }
+      
+      .table td,
+      .table th {
+        padding: 0.5rem;
+        vertical-align: middle;
+      }
+      
+      .table img {
+        max-width: 80px;
+        height: auto;
+      }
+      
+      /* Dashboard cards responsive */
+      .card {
+        margin-bottom: 1rem;
+      }
+      
+      .card-body {
+        padding: 0.75rem;
+      }
+      
+      .card-body .d-flex {
+        flex-wrap: wrap;
+      }
+      
+      .card-body .p-3 {
+        padding: 0.5rem !important;
+      }
+      
+      /* Form elements responsive */
+      .form-control,
+      .form-select {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+      
+      textarea.form-control {
+        min-height: 100px;
+      }
+      
+      /* Button responsive */
+      .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      /* Cropper modal responsive */
+      #modalCrop .modal-body {
+        padding: 0.5rem;
+      }
+      
+      #modalCrop .img-container {
+        max-height: 50vh;
+      }
+      
+      #modalCrop .modal-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      #modalCrop .modal-footer .me-auto {
+        margin: 0 0 0.5rem 0 !important;
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      
+      /* AI generation section responsive */
+      .card.bg-light .input-group {
+        flex-direction: column;
+      }
+      
+      .card.bg-light .input-group .form-control {
+        border-radius: 0.375rem !important;
+        margin-bottom: 0.5rem;
+      }
+      
+      .card.bg-light .input-group .btn {
+        border-radius: 0.375rem !important;
+        width: 100%;
+      }
+      
+      /* List group responsive */
+      .list-group-item {
+        padding: 0.75rem;
+      }
+      
+      .list-group-item h6 {
+        font-size: 0.9rem;
+      }
+      
+      /* Navbar responsive */
+      .navbar-brand {
+        font-size: 1rem;
+      }
+      
+      /* Footer responsive */
+      footer {
+        position: relative;
+        height: auto;
+        padding: 1.5rem !important;
+      }
+      
+      footer h6 {
+        font-size: 0.85rem;
+      }
+      
+      /* Page title responsive */
+      .display-6 {
+        font-size: 1.5rem;
+      }
+      
+      /* Pagination responsive */
+      .pagination {
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      
+      .page-link {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.85rem;
+      }
+    }
+    
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .modal-title {
+        font-size: 1rem;
+      }
+      
+      .form-label {
+        font-size: 0.9rem;
+      }
+      
+      .table {
+        font-size: 0.8rem;
+      }
+      
+      .badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+      }
+      
+      /* Stack action buttons */
+      td .badge {
+        display: inline-block;
+        margin: 0.1rem;
+      }
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

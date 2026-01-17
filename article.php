@@ -10,7 +10,7 @@
         <!-- Awal Modal Tambah -->
         <div class="modal fade" id="modalTambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
                 <div class="modal-content">
 
                     <div class="modal-header">
@@ -97,7 +97,7 @@
         <!-- Modal Crop (FIX: jangan modal-footer dobel/nested) -->
         <div class="modal fade" id="modalCrop" tabindex="-1" aria-labelledby="modalCropLabel" aria-hidden="true"
             data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
                 <div class="modal-content">
 
                     <div class="modal-header">
