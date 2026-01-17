@@ -129,6 +129,44 @@ if (!isset($_SESSION['username'])) {
         flex: none !important;
       }
       
+      /* Modal input-group fix for Edit/Delete modals */
+      .modal .input-group {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      
+      .modal .input-group > .form-control,
+      .modal .input-group > textarea.form-control,
+      .modal .input-group > input[type="text"],
+      .modal .input-group > input[type="file"] {
+        flex: none !important;
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+        border-radius: 0.375rem !important;
+      }
+      
+      .modal .input-group > .btn,
+      .modal .input-group > button {
+        flex: none !important;
+        width: 100% !important;
+        border-radius: 0.375rem !important;
+      }
+      
+      /* Modal form controls full width */
+      .modal .form-control,
+      .modal textarea.form-control {
+        width: 100% !important;
+      }
+      
+      /* Modal body padding for mobile */
+      .modal-body .mb-3 {
+        width: 100%;
+      }
+      
+      .modal-body .form-control {
+        width: 100% !important;
+      }
+      
       /* Section padding responsive */
       #content {
         padding: 1rem !important;
